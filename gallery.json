@@ -1,0 +1,20 @@
+{
+  "images": [
+    {
+      "name": "sample1.jpg",
+      "path": "assets/sample1.jpg",
+      "timestamp": 1703123456789
+    },
+    {
+      "name": "sample2.jpg", 
+      "path": "assets/sample2.jpg",
+      "timestamp": 1703123456790
+    },
+    {
+      "name": "sample3.jpg",
+      "path": "assets/sample3.jpg", 
+      "timestamp": 1703123456791
+    }
+  ],
+  "lastUpdated": "2024-12-17T10:30:00.000Z"
+}

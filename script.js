@@ -310,11 +310,32 @@ document.querySelectorAll('.gallery-item, .about-content').forEach(el => {
     observer.observe(el);
 });
 
-// Mobile menu toggle (if you want to add mobile menu later)
+// Mobile menu toggle
 function toggleMobileMenu() {
     const navMenu = document.querySelector('.nav-menu');
-    navMenu.classList.toggle('active');
+    const mobileBtn = document.querySelector('.mobile-menu-btn');
+
+    navMenu.classList.toggle('mobile-active');
+    mobileBtn.textContent = navMenu.classList.contains('mobile-active') ? '✕' : '☰';
 }
+
+// Show mobile menu button on small screens
+function updateMobileMenu() {
+    const mobileBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (window.innerWidth <= 768) {
+        mobileBtn.style.display = 'block';
+    } else {
+        mobileBtn.style.display = 'none';
+        navMenu.classList.remove('mobile-active');
+        mobileBtn.textContent = '☰';
+    }
+}
+
+// Update on resize
+window.addEventListener('resize', updateMobileMenu);
+document.addEventListener('DOMContentLoaded', updateMobileMenu);
 
 // Video play/pause on scroll (optional enhancement)
 window.addEventListener('scroll', () => {

@@ -23,9 +23,9 @@ window.addEventListener('scroll', () => {
 });
 
 // Load site data and gallery images
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('🚀 Page loaded, starting to load data...');
-    
+
     // Check if we have embedded data (static version)
     if (window.SITE_DATA) {
         console.log('📊 Using embedded site data (static version)');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loadSiteData();
         loadGalleryImages();
     }
-    
+
     // Debug: Check if gallery grid exists
     const galleryGrid = document.getElementById('galleryGrid');
     if (galleryGrid) {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function loadSiteData() {
     const debugInfo = document.getElementById('debugInfo');
-    
+
     fetch('site-data.json')
         .then(response => {
             if (!response.ok) {
@@ -86,7 +86,7 @@ function updateSiteContent(data) {
         if (data.profile.bio) {
             document.querySelector('.hero-subtitle').textContent = data.profile.bio;
         }
-        
+
         // Update profile details
         if (data.profile.height) {
             document.querySelector('.detail-item:nth-child(1) .detail-value').textContent = data.profile.height;
@@ -103,13 +103,13 @@ function updateSiteContent(data) {
         if (data.profile.age) {
             document.querySelector('.detail-item:nth-child(5) .detail-value').textContent = data.profile.age;
         }
-        
+
         // Apply image settings if they exist
         if (data.profile.imageSettings) {
             applyImageSettings(data.profile.imageSettings);
         }
     }
-    
+
     if (data.about) {
         // Update about section content
         if (data.about.paragraph1) {
@@ -121,12 +121,12 @@ function updateSiteContent(data) {
         if (data.about.skills) {
             const skillsContainer = document.getElementById('aboutSkillsContainer');
             const skills = data.about.skills.split(',').map(s => s.trim()).filter(s => s);
-            skillsContainer.innerHTML = skills.map(skill => 
+            skillsContainer.innerHTML = skills.map(skill =>
                 `<span class="skill-tag">${skill}</span>`
             ).join('');
         }
     }
-    
+
     if (data.contact) {
         // Update contact information
         if (data.contact.email) {
@@ -143,7 +143,7 @@ function updateSiteContent(data) {
                 phoneLink.textContent = data.contact.phone;
             }
         }
-        
+
         // Update social links
         const socialLinks = document.querySelectorAll('.social-link');
         if (data.contact.instagram && socialLinks[0]) {
@@ -160,7 +160,7 @@ function updateSiteContent(data) {
 
 function loadGalleryImages() {
     console.log('Loading gallery images...');
-    
+
     // Try to load from site-data.json first, then fallback to gallery.json
     fetch('site-data.json')
         .then(response => {
@@ -212,12 +212,12 @@ function loadFromGalleryJson() {
 function displayGalleryImages(images) {
     console.log('Displaying gallery images:', images);
     const galleryGrid = document.getElementById('galleryGrid');
-    
+
     if (!galleryGrid) {
         console.error('Gallery grid element not found!');
         return;
     }
-    
+
     if (images && images.length > 0) {
         galleryGrid.innerHTML = '';
         images.forEach((imageInfo, index) => {
@@ -246,18 +246,18 @@ function createGalleryItem(src, alt) {
     console.log('Creating gallery item with src:', src);
     const item = document.createElement('div');
     item.className = 'gallery-item';
-    
+
     item.innerHTML = `
         <img src="${src}" alt="${alt}" loading="lazy" 
              onerror="console.error('Failed to load image:', '${src}'); this.style.display='none';"
              onload="console.log('Image loaded successfully:', '${src}');">
     `;
-    
+
     return item;
 }
 
 // Gallery item click for fullscreen view
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     if (e.target.matches('.gallery-item img')) {
         openImageModal(e.target.src);
     }
@@ -272,7 +272,7 @@ function openImageModal(src) {
             <button class="modal-close" onclick="closeImageModal()">×</button>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
 }
@@ -320,7 +320,7 @@ window.addEventListener('scroll', () => {
     if (video) {
         const rect = video.getBoundingClientRect();
         const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-        
+
         if (!isVisible && !video.paused) {
             video.pause();
         }
@@ -330,10 +330,10 @@ window.addEventListener('scroll', () => {
 // Apply custom image positioning and zoom (only to hero image)
 function applyImageSettings(settings) {
     console.log('Applying image settings:', settings);
-    
+
     // Only apply to hero profile image, not about section
     const heroProfileImage = document.querySelector('.profile-image img');
-    
+
     if (heroProfileImage) {
         if (settings.zoom) {
             heroProfileImage.style.transform = `scale(${settings.zoom})`;
@@ -344,10 +344,140 @@ function applyImageSettings(settings) {
         }
         console.log('✅ Applied custom image settings to hero image');
     }
-    
+
     // About section image remains natural (no custom settings applied)
     const aboutImage = document.querySelector('.about-image img');
     if (aboutImage) {
         console.log('✅ About section image kept natural (no zoom/positioning)');
     }
 }
+
+// Add floating clouds to about section
+function createFloatingClouds() {
+    const aboutSection = document.querySelector('.about');
+    if (!aboutSection) return;
+
+    // Create cloud container
+    const cloudContainer = document.createElement('div');
+    cloudContainer.className = 'cloud-container';
+    cloudContainer.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    `;
+
+    // Create multiple clouds
+    for (let i = 0; i < 5; i++) {
+        const cloud = document.createElement('div');
+        cloud.className = 'floating-cloud';
+        cloud.style.cssText = `
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            opacity: 0.6;
+            animation: floatCloud ${15 + i * 5}s ease-in-out infinite;
+            animation-delay: ${i * 3}s;
+        `;
+
+        // Random cloud sizes and positions
+        const size = 60 + Math.random() * 40;
+        const top = 20 + Math.random() * 60;
+        const left = -10 + Math.random() * 120;
+
+        cloud.style.width = size + 'px';
+        cloud.style.height = size * 0.6 + 'px';
+        cloud.style.top = top + '%';
+        cloud.style.left = left + '%';
+
+        // Add cloud parts for realistic shape
+        cloud.innerHTML = `
+            <div style="position: absolute; background: rgba(255,255,255,0.9); border-radius: 50%; 
+                        width: 50%; height: 80%; top: 10%; left: 10%;"></div>
+            <div style="position: absolute; background: rgba(255,255,255,0.7); border-radius: 50%; 
+                        width: 60%; height: 60%; top: 20%; right: 10%;"></div>
+        `;
+
+        cloudContainer.appendChild(cloud);
+    }
+
+    aboutSection.appendChild(cloudContainer);
+
+    // Add CSS animation for clouds
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes floatCloud {
+            0% { transform: translateX(-100px) translateY(0px); }
+            50% { transform: translateX(50px) translateY(-20px); }
+            100% { transform: translateX(calc(100vw + 100px)) translateY(0px); }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Add shooting stars effect
+function createShootingStars() {
+    const heroSection = document.querySelector('.hero');
+    if (!heroSection) return;
+
+    setInterval(() => {
+        const shootingStar = document.createElement('div');
+        shootingStar.style.cssText = `
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+            top: ${Math.random() * 50}%;
+            left: ${Math.random() * 100}%;
+            animation: shootingStar 3s linear forwards;
+            z-index: 3;
+        `;
+
+        heroSection.appendChild(shootingStar);
+
+        // Remove after animation
+        setTimeout(() => {
+            if (shootingStar.parentNode) {
+                shootingStar.parentNode.removeChild(shootingStar);
+            }
+        }, 3000);
+
+    }, 8000); // Create shooting star every 8 seconds
+
+    // Add CSS animation for shooting stars
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes shootingStar {
+            0% { 
+                transform: translateX(0) translateY(0) scale(0);
+                opacity: 1;
+            }
+            10% { 
+                transform: translateX(50px) translateY(50px) scale(1);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateX(300px) translateY(300px) scale(0);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Initialize cinematic effects
+document.addEventListener('DOMContentLoaded', function () {
+    // Existing code...
+
+    // Add cinematic effects after a short delay
+    setTimeout(() => {
+        createFloatingClouds();
+        createShootingStars();
+        console.log('🎬 Cinematic effects initialized');
+    }, 1000);
+});

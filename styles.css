@@ -68,14 +68,81 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
     color: #fff;
     padding: 120px 20px 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Twinkling Stars Background - Layer 1 */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    animation: sparkle 20s linear infinite, twinkleStars 3s ease-in-out infinite alternate;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+/* Twinkling Stars Background - Layer 2 */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(1px 1px at 50px 50px, rgba(255,255,255,0.4), transparent),
+        radial-gradient(2px 2px at 100px 25px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 150px 75px, #fff, transparent),
+        radial-gradient(1px 1px at 180px 45px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(2px 2px at 220px 85px, #fff, transparent);
+    background-repeat: repeat;
+    background-size: 300px 150px;
+    animation: sparkle 25s linear infinite reverse, twinkleStars 4s ease-in-out infinite alternate;
+    animation-delay: 0s, 1.5s;
+    opacity: 0.6;
+    z-index: 1;
+}
+
+@keyframes sparkle {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(-200px) translateY(-100px); }
+}
+
+@keyframes twinkleStars {
+    0% { 
+        opacity: 0.3;
+        filter: brightness(0.8);
+    }
+    50% { 
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+    100% { 
+        opacity: 0.6;
+        filter: brightness(1);
+    }
 }
 
 .hero-content {
     max-width: 1000px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-profile {
@@ -152,8 +219,35 @@ body {
 /* Gallery Section */
 .gallery {
     padding: 100px 0;
-    background: #111;
+    background: linear-gradient(45deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
     color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Cinematic film grain effect */
+.gallery::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px, 80px 80px;
+    animation: filmGrain 8s linear infinite;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+@keyframes filmGrain {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, -1px); }
+    50% { transform: translate(1px, -2px); }
+    75% { transform: translate(-1px, 1px); }
+    100% { transform: translate(0, 0); }
 }
 
 .section-title {
@@ -203,8 +297,85 @@ body {
 /* About Section */
 .about {
     padding: 100px 0;
-    background: #fff;
+    background: linear-gradient(180deg, 
+        #87CEEB 0%,     /* Sky blue */
+        #98D8E8 30%,    /* Light blue */
+        #F0F8FF 70%,    /* Alice blue */
+        #FFFAF0 100%    /* Floral white */
+    );
     color: #333;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated Sun - Left side, foreground */
+.about::before {
+    content: '';
+    position: absolute;
+    top: 80px;
+    left: 100px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, 
+        #FFD700 0%,     /* Gold center */
+        #FFA500 40%,    /* Orange */
+        #FF8C00 70%,    /* Dark orange */
+        transparent 100%
+    );
+    border-radius: 50%;
+    animation: sunGlow 4s ease-in-out infinite alternate;
+    z-index: 10;
+    box-shadow: 0 0 60px rgba(255, 215, 0, 0.6);
+}
+
+/* Sun rays - Left side */
+.about::after {
+    content: '';
+    position: absolute;
+    top: 55px;
+    left: 75px;
+    width: 200px;
+    height: 200px;
+    background: conic-gradient(
+        transparent 0deg,
+        rgba(255, 215, 0, 0.4) 10deg,
+        transparent 20deg,
+        rgba(255, 215, 0, 0.4) 30deg,
+        transparent 40deg,
+        rgba(255, 215, 0, 0.4) 50deg,
+        transparent 60deg,
+        rgba(255, 215, 0, 0.4) 70deg,
+        transparent 80deg,
+        rgba(255, 215, 0, 0.4) 90deg,
+        transparent 100deg,
+        rgba(255, 215, 0, 0.4) 110deg,
+        transparent 120deg
+    );
+    border-radius: 50%;
+    animation: sunRotate 20s linear infinite;
+    z-index: 9;
+}
+
+@keyframes sunGlow {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+    100% { 
+        transform: scale(1.1);
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+    }
+}
+
+@keyframes sunRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Floating clouds */
+.about .container {
+    position: relative;
+    z-index: 2;
 }
 
 .about-content {
@@ -265,17 +436,56 @@ body {
     font-weight: 500;
 }
 
+/* Gallery container */
+.gallery .container {
+    position: relative;
+    z-index: 2;
+}
+
 /* Contact Section */
 .contact {
     padding: 100px 0;
-    background: #000;
+    background: linear-gradient(135deg, #000428 0%, #004e92 100%);
     color: #fff;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
+
+/* Twinkling stars for contact section */
+.contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 30px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 80px 20px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 120px 60px, #fff, transparent),
+        radial-gradient(2px 2px at 180px 10px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 200px 80px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(2px 2px at 50px 90px, #fff, transparent);
+    background-repeat: repeat;
+    background-size: 250px 100px;
+    animation: twinkleStars 2s ease-in-out infinite alternate, slowDrift 30s linear infinite;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+@keyframes slowDrift {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(-50px) translateY(-25px); }
+}
+
+
 
 .contact-content {
     max-width: 600px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 .contact-info p {
@@ -478,4 +688,89 @@ html {
 .gallery-item,
 .about-content {
     animation: fadeInUp 0.8s ease-out;
+}/* Pa
+rallax scrolling effects */
+.hero, .gallery, .contact {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Enhanced gallery items with cinematic hover */
+.gallery-item {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: grayscale(20%) contrast(1.1);
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    filter: grayscale(0%) contrast(1.2) brightness(1.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Cinematic text glow effects */
+.hero-title {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+    100% { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.3); }
+}
+
+/* Profile image cinematic border */
+.profile-image {
+    position: relative;
+}
+
+.profile-image::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, 
+        rgba(255, 215, 0, 0.5) 0%,
+        rgba(255, 255, 255, 0.3) 25%,
+        rgba(255, 215, 0, 0.5) 50%,
+        rgba(255, 255, 255, 0.3) 75%,
+        rgba(255, 215, 0, 0.5) 100%
+    );
+    border-radius: 17px;
+    animation: borderGlow 4s linear infinite;
+    z-index: -1;
+}
+
+@keyframes borderGlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* Responsive adjustments for effects */
+@media (max-width: 768px) {
+    .hero::before, .hero::after {
+        animation-duration: 30s;
+    }
+    
+    .about::before {
+        width: 100px;
+        height: 100px;
+        top: 50px;
+        left: 30px;
+    }
+    
+    .about::after {
+        width: 130px;
+        height: 130px;
+        top: 35px;
+        left: 15px;
+    }
+    
+    .hero-title {
+        animation: none;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
 }

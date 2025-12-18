@@ -91,6 +91,8 @@ body {
         radial-gradient(2px 2px at 160px 30px, #fff, transparent);
     background-repeat: repeat;
     background-size: 200px 100px;
+    -webkit-animation: sparkle 20s linear infinite, twinkleStars 3s ease-in-out infinite alternate;
+    -moz-animation: sparkle 20s linear infinite, twinkleStars 3s ease-in-out infinite alternate;
     animation: sparkle 20s linear infinite, twinkleStars 3s ease-in-out infinite alternate;
     opacity: 0.8;
     z-index: 1;
@@ -112,15 +114,62 @@ body {
         radial-gradient(2px 2px at 220px 85px, #fff, transparent);
     background-repeat: repeat;
     background-size: 300px 150px;
+    -webkit-animation: sparkle 25s linear infinite reverse, twinkleStars 4s ease-in-out infinite alternate;
+    -moz-animation: sparkle 25s linear infinite reverse, twinkleStars 4s ease-in-out infinite alternate;
     animation: sparkle 25s linear infinite reverse, twinkleStars 4s ease-in-out infinite alternate;
+    -webkit-animation-delay: 0s, 1.5s;
+    -moz-animation-delay: 0s, 1.5s;
     animation-delay: 0s, 1.5s;
     opacity: 0.6;
     z-index: 1;
 }
 
+@-webkit-keyframes sparkle {
+    0% { -webkit-transform: translateX(0) translateY(0); transform: translateX(0) translateY(0); }
+    100% { -webkit-transform: translateX(-200px) translateY(-100px); transform: translateX(-200px) translateY(-100px); }
+}
+
+@-moz-keyframes sparkle {
+    0% { -moz-transform: translateX(0) translateY(0); transform: translateX(0) translateY(0); }
+    100% { -moz-transform: translateX(-200px) translateY(-100px); transform: translateX(-200px) translateY(-100px); }
+}
+
 @keyframes sparkle {
     0% { transform: translateX(0) translateY(0); }
     100% { transform: translateX(-200px) translateY(-100px); }
+}
+
+@-webkit-keyframes twinkleStars {
+    0% { 
+        opacity: 0.3;
+        -webkit-filter: brightness(0.8);
+        filter: brightness(0.8);
+    }
+    50% { 
+        opacity: 1;
+        -webkit-filter: brightness(1.5);
+        filter: brightness(1.5);
+    }
+    100% { 
+        opacity: 0.6;
+        -webkit-filter: brightness(1);
+        filter: brightness(1);
+    }
+}
+
+@-moz-keyframes twinkleStars {
+    0% { 
+        opacity: 0.3;
+        filter: brightness(0.8);
+    }
+    50% { 
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+    100% { 
+        opacity: 0.6;
+        filter: brightness(1);
+    }
 }
 
 @keyframes twinkleStars {

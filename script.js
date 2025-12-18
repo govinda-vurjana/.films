@@ -79,6 +79,8 @@ function updateSiteContent(data) {
             document.querySelector('.hero-title').textContent = data.profile.name;
             document.querySelector('.nav-logo').textContent = data.profile.name;
             document.getElementById('footerName').textContent = data.profile.name;
+            // Update page title
+            document.title = data.profile.name + ' - Film Portfolio';
         }
         if (data.profile.role) {
             document.querySelector('.hero-role').textContent = data.profile.role;
@@ -480,4 +482,97 @@ document.addEventListener('DOMContentLoaded', function () {
         createShootingStars();
         console.log('🎬 Cinematic effects initialized');
     }, 1000);
+});// Fallback for GitHub Pages - ensure effects are visible
+function ensureEffectsVisible() {
+    // Check if CSS animations are working
+    const heroSection = document.querySelector('.hero');
+    if (!heroSection) return;
+
+    // Test if CSS animations are supported
+    const testElement = document.createElement('div');
+    testElement.style.animation = 'test 1s';
+    const animationSupported = testElement.style.animation !== '';
+
+    if (!animationSupported) {
+        console.log('CSS animations not supported, using JavaScript fallback');
+        createJavaScriptStars();
+    } else {
+        // Force CSS animations to start
+        const heroStyles = window.getComputedStyle(heroSection, '::before');
+        if (heroStyles.animation === 'none' || heroStyles.animation === '') {
+            console.log('CSS animations not loading, using JavaScript fallback');
+            createJavaScriptStars();
+        }
+    }
+}
+
+// JavaScript fallback for star effects
+function createJavaScriptStars() {
+    const heroSection = document.querySelector('.hero');
+    const contactSection = document.querySelector('.contact');
+
+    [heroSection, contactSection].forEach(section => {
+        if (!section) return;
+
+        const starContainer = document.createElement('div');
+        starContainer.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        `;
+
+        // Create multiple stars
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.style.cssText = `
+                position: absolute;
+                width: ${Math.random() * 3 + 1}px;
+                height: ${Math.random() * 3 + 1}px;
+                background: white;
+                border-radius: 50%;
+                top: ${Math.random() * 100}%;
+                left: ${Math.random() * 100}%;
+                opacity: ${Math.random() * 0.8 + 0.2};
+                box-shadow: 0 0 ${Math.random() * 10 + 5}px rgba(255,255,255,0.5);
+            `;
+
+            starContainer.appendChild(star);
+
+            // Animate star
+            animateStar(star);
+        }
+
+        section.appendChild(starContainer);
+    });
+}
+
+function animateStar(star) {
+    let opacity = parseFloat(star.style.opacity);
+    let direction = Math.random() > 0.5 ? 1 : -1;
+
+    setInterval(() => {
+        opacity += direction * 0.02;
+        if (opacity >= 1) {
+            opacity = 1;
+            direction = -1;
+        } else if (opacity <= 0.2) {
+            opacity = 0.2;
+            direction = 1;
+        }
+        star.style.opacity = opacity;
+    }, 100);
+}
+
+// Initialize fallback after page load
+document.addEventListener('DOMContentLoaded', function () {
+    // Existing code...
+
+    // Check effects after a delay
+    setTimeout(() => {
+        ensureEffectsVisible();
+    }, 2000);
 });

@@ -503,7 +503,8 @@ document.addEventListener('DOMContentLoaded', function () {
         createShootingStars();
         console.log('🎬 Cinematic effects initialized');
     }, 1000);
-});// Fallback for GitHub Pages - ensure effects are visible
+});
+// Fallback for GitHub Pages - ensure effects are visible
 function ensureEffectsVisible() {
     // Check if CSS animations are working
     const heroSection = document.querySelector('.hero');

@@ -25,8 +25,21 @@ window.addEventListener('scroll', () => {
 // Load site data and gallery images
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Page loaded, starting to load data...');
-    loadSiteData();
-    loadGalleryImages();
+    
+    // Check if we have embedded data (static version)
+    if (window.SITE_DATA) {
+        console.log('📊 Using embedded site data (static version)');
+        updateSiteContent(window.SITE_DATA);
+        if (window.SITE_DATA.gallery && window.SITE_DATA.gallery.images) {
+            displayGalleryImages(window.SITE_DATA.gallery.images);
+        } else {
+            showGalleryPlaceholder();
+        }
+    } else {
+        console.log('🌐 Loading data from JSON files (server version)');
+        loadSiteData();
+        loadGalleryImages();
+    }
     
     // Debug: Check if gallery grid exists
     const galleryGrid = document.getElementById('galleryGrid');

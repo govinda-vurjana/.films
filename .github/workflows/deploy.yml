@@ -22,10 +22,10 @@ jobs:
     - name: Install dependencies
       run: npm install
       
-    - name: Build (if needed)
+    - name: Build static version
       run: |
-        # No build step needed for static site
-        echo "Static site - no build required"
+        # Build static version with embedded data
+        npm run build
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

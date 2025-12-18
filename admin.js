@@ -421,7 +421,10 @@ async function saveAllData() {
         const result = await response.json();
         
         if (result.success) {
-            showStatus('✅ All data saved automatically! Site updated.', 'success');
+            showStatus('✅ All data saved automatically! Building static version...', 'success');
+        
+        // Build static version
+        await buildStaticVersion(siteData);
             
             // Refresh the main site preview
             setTimeout(() => {
@@ -719,3 +722,28 @@ document.addEventListener('DOMContentLoaded', function() {
             showStatus('⚠️ Server not running. Start with: npm start', 'error');
         });
 });
+// Buil
+d static version with embedded data
+async function buildStaticVersion(siteData) {
+    try {
+        const response = await fetch('/api/build-static', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ siteData })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showStatus('🎉 Static version built! Site ready for GitHub Pages.', 'success');
+        } else {
+            throw new Error(result.error);
+        }
+        
+    } catch (error) {
+        console.error('Build static error:', error);
+        showStatus('⚠️ Static build failed, but data was saved.', 'error');
+    }
+}

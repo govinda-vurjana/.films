@@ -120,6 +120,39 @@ app.post('/api/deploy', async (req, res) => {
     }
 });
 
+// Build static version
+app.post('/api/build-static', async (req, res) => {
+    try {
+        const { siteData } = req.body;
+        
+        // Read the current HTML template
+        let html = await fs.readFile('index.html', 'utf8');
+        
+        // Remove any existing embedded data
+        html = html.replace(/<script>\s*\/\/ Embedded site data[\s\S]*?<\/script>\s*/g, '');
+        
+        // Create embedded data script
+        const embeddedDataScript = `    <script>
+        // Embedded site data - no server required
+        window.SITE_DATA = ${JSON.stringify(siteData, null, 8)};
+        console.log('📊 Site data loaded from embedded source');
+    </script>`;
+
+        // Insert the embedded data before the script.js
+        html = html.replace('<script src="script.js"></script>', 
+            embeddedDataScript + '\n    <script src="script.js"></script>');
+
+        // Write the updated HTML file
+        await fs.writeFile('index.html', html);
+        
+        console.log('✅ Built static version with embedded data');
+        res.json({ success: true, message: 'Static version built successfully!' });
+    } catch (error) {
+        console.error('❌ Error building static version:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 // Check git status
 app.get('/api/git-status', async (req, res) => {
     try {

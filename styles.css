@@ -87,14 +87,20 @@ body {
 
 .profile-image {
     position: relative;
+    overflow: hidden;
+    border-radius: 12px;
 }
 
 .profile-image img {
     width: 100%;
     height: 400px;
     object-fit: cover;
+    object-position: 50% 20%;
+    transform-origin: 50% 20%;
     border-radius: 12px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    transform: scale(1.2);
+    transition: transform 0.3s ease, object-position 0.3s ease, transform-origin 0.3s ease;
 }
 
 .profile-info {
@@ -141,21 +147,7 @@ body {
     color: #fff;
 }
 
-.hero-skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-}
 
-.skill-badge {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    backdrop-filter: blur(10px);
-}
 
 /* Gallery Section */
 .gallery {
@@ -254,6 +246,23 @@ body {
     width: 100%;
     border-radius: 8px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    object-position: center center;
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.skill-tag {
+    background: #f0f0f0;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 /* Contact Section */

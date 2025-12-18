@@ -11,32 +11,32 @@ A modern, responsive film portfolio website with CMS functionality, designed for
 - **Responsive Design**: Works perfectly on all devices
 - **Modern Animations**: Smooth transitions and hover effects
 
-## Quick Start
+## 🚀 Automated Setup (Recommended)
 
-1. **Clone and Setup**:
+1. **Clone and Start**:
    ```bash
    git clone your-repo-url
    cd your-portfolio
-   ```
-
-2. **Customize Your Info**:
-   - Edit `index.html` - Replace "Your Name" and personal details
-   - Add your profile image as `assets/profile.jpg`
-
-3. **Manage Images**:
-   - Open `admin.html` in your browser
-   - Upload and manage your portfolio images
-   - Download the generated `gallery.json` file
-
-4. **Deploy to GitHub Pages**:
-   ```bash
+   
    # Windows
-   deploy.bat
+   start.bat
    
    # Mac/Linux
-   chmod +x deploy.sh
-   ./deploy.sh
+   chmod +x start.sh
+   ./start.sh
    ```
+
+2. **Use the CMS**:
+   - Admin panel opens automatically at `http://localhost:3000/admin.html`
+   - Fill in your information and upload images
+   - Click "💾 Save All Changes" - everything saves automatically!
+   - Click "🚀 Deploy to GitHub" when ready to publish
+
+3. **That's it!** 
+   - Files save automatically to the correct folders
+   - Images upload to `assets/` automatically  
+   - One-click deployment to GitHub Pages
+   - Live preview updates instantly
 
 ## Content Management System
 

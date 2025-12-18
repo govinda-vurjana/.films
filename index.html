@@ -52,13 +52,10 @@
                             <span class="detail-label">Experience:</span>
                             <span class="detail-value">5+ Years</span>
                         </div>
-                    </div>
-
-                    <div class="hero-skills">
-                        <span class="skill-badge">Direction</span>
-                        <span class="skill-badge">Cinematography</span>
-                        <span class="skill-badge">Editing</span>
-                        <span class="skill-badge">Color Grading</span>
+                        <div class="detail-item">
+                            <span class="detail-label">Age:</span>
+                            <span class="detail-value">25</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,12 +76,12 @@
                 <div class="about-content">
                     <div class="about-text">
                         <h2>About</h2>
-                        <p>I'm a passionate filmmaker with over 5 years of experience in directing and cinematography.
+                        <p id="aboutParagraph1">I'm a passionate filmmaker with over 5 years of experience in directing and cinematography.
                             My work focuses on authentic storytelling through compelling visuals and emotional depth.
                         </p>
-                        <p>I've worked with various clients from independent artists to major brands, always bringing a
+                        <p id="aboutParagraph2">I've worked with various clients from independent artists to major brands, always bringing a
                             unique perspective to each project.</p>
-                        <div class="skills">
+                        <div class="skills" id="aboutSkillsContainer">
                             <span class="skill-tag">Direction</span>
                             <span class="skill-tag">Cinematography</span>
                             <span class="skill-tag">Editing</span>
@@ -121,7 +118,12 @@
 
         <footer class="footer">
             <div class="container">
-                <p>&copy; 2024 Your Name. All rights reserved.</p>
+                <p>&copy; 2024 <span id="footerName">Your Name</span>. All rights reserved.</p>
+                <!-- Debug info - remove in production -->
+                <div style="margin-top: 10px; font-size: 12px; opacity: 0.5;">
+                    <span id="debugInfo">Loading site data...</span>
+                    <button onclick="location.reload()" style="margin-left: 10px; padding: 2px 8px; font-size: 11px;">Refresh</button>
+                </div>
             </div>
         </footer>
 

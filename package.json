@@ -1,0 +1,22 @@
+{
+  "name": "film-portfolio-cms",
+  "version": "1.0.0",
+  "description": "Automated CMS for film portfolio website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "node build-production.js",
+    "deploy": "node deploy.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "cors": "^2.8.5",
+    "simple-git": "^3.19.1"
+  },
+  "devDependencies": {},
+  "keywords": ["portfolio", "cms", "film", "website"],
+  "author": "Your Name",
+  "license": "MIT"
+}

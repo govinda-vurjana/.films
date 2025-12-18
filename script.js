@@ -22,50 +22,222 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Load gallery images from JSON file
+// Load site data and gallery images
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Page loaded, starting to load data...');
+    loadSiteData();
     loadGalleryImages();
+    
+    // Debug: Check if gallery grid exists
+    const galleryGrid = document.getElementById('galleryGrid');
+    if (galleryGrid) {
+        console.log('✅ Gallery grid element found');
+    } else {
+        console.error('❌ Gallery grid element NOT found!');
+    }
 });
 
-function loadGalleryImages() {
-    fetch('gallery.json')
-        .then(response => response.json())
-        .then(data => {
-            const galleryGrid = document.getElementById('galleryGrid');
-            
-            if (data.images && data.images.length > 0) {
-                data.images.forEach(imageInfo => {
-                    const galleryItem = createGalleryItem(imageInfo.path, imageInfo.name);
-                    galleryGrid.appendChild(galleryItem);
-                });
-            } else {
-                // Show placeholder if no images
-                galleryGrid.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
-                        <p>No images in gallery yet.</p>
-                        <p>Use the admin panel to add images.</p>
-                    </div>
-                `;
+function loadSiteData() {
+    const debugInfo = document.getElementById('debugInfo');
+    
+    fetch('site-data.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Site data file not found');
             }
+            return response.json();
+        })
+        .then(data => {
+            updateSiteContent(data);
+            debugInfo.textContent = `✅ Site data loaded (${new Date().toLocaleTimeString()})`;
+            debugInfo.style.color = '#28a745';
         })
         .catch(error => {
-            console.log('Gallery data not found, showing placeholder');
-            const galleryGrid = document.getElementById('galleryGrid');
-            galleryGrid.innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
-                    <p>Gallery loading...</p>
-                    <p>Use the admin panel to add images.</p>
-                </div>
-            `;
+            console.log('Site data not found, using defaults');
+            debugInfo.textContent = `❌ site-data.json not found - using defaults`;
+            debugInfo.style.color = '#dc3545';
         });
 }
 
+function updateSiteContent(data) {
+    if (data.profile) {
+        // Update hero section
+        if (data.profile.name) {
+            document.querySelector('.hero-title').textContent = data.profile.name;
+            document.querySelector('.nav-logo').textContent = data.profile.name;
+            document.getElementById('footerName').textContent = data.profile.name;
+        }
+        if (data.profile.role) {
+            document.querySelector('.hero-role').textContent = data.profile.role;
+        }
+        if (data.profile.bio) {
+            document.querySelector('.hero-subtitle').textContent = data.profile.bio;
+        }
+        
+        // Update profile details
+        if (data.profile.height) {
+            document.querySelector('.detail-item:nth-child(1) .detail-value').textContent = data.profile.height;
+        }
+        if (data.profile.languages) {
+            document.querySelector('.detail-item:nth-child(2) .detail-value').textContent = data.profile.languages;
+        }
+        if (data.profile.location) {
+            document.querySelector('.detail-item:nth-child(3) .detail-value').textContent = data.profile.location;
+        }
+        if (data.profile.experience) {
+            document.querySelector('.detail-item:nth-child(4) .detail-value').textContent = data.profile.experience;
+        }
+        if (data.profile.age) {
+            document.querySelector('.detail-item:nth-child(5) .detail-value').textContent = data.profile.age;
+        }
+        
+        // Apply image settings if they exist
+        if (data.profile.imageSettings) {
+            applyImageSettings(data.profile.imageSettings);
+        }
+    }
+    
+    if (data.about) {
+        // Update about section content
+        if (data.about.paragraph1) {
+            document.getElementById('aboutParagraph1').textContent = data.about.paragraph1;
+        }
+        if (data.about.paragraph2) {
+            document.getElementById('aboutParagraph2').textContent = data.about.paragraph2;
+        }
+        if (data.about.skills) {
+            const skillsContainer = document.getElementById('aboutSkillsContainer');
+            const skills = data.about.skills.split(',').map(s => s.trim()).filter(s => s);
+            skillsContainer.innerHTML = skills.map(skill => 
+                `<span class="skill-tag">${skill}</span>`
+            ).join('');
+        }
+    }
+    
+    if (data.contact) {
+        // Update contact information
+        if (data.contact.email) {
+            const emailLink = document.querySelector('a[href^="mailto:"]');
+            if (emailLink) {
+                emailLink.href = `mailto:${data.contact.email}`;
+                emailLink.textContent = data.contact.email;
+            }
+        }
+        if (data.contact.phone) {
+            const phoneLink = document.querySelector('a[href^="tel:"]');
+            if (phoneLink) {
+                phoneLink.href = `tel:${data.contact.phone}`;
+                phoneLink.textContent = data.contact.phone;
+            }
+        }
+        
+        // Update social links
+        const socialLinks = document.querySelectorAll('.social-link');
+        if (data.contact.instagram && socialLinks[0]) {
+            socialLinks[0].href = data.contact.instagram;
+        }
+        if (data.contact.vimeo && socialLinks[1]) {
+            socialLinks[1].href = data.contact.vimeo;
+        }
+        if (data.contact.linkedin && socialLinks[2]) {
+            socialLinks[2].href = data.contact.linkedin;
+        }
+    }
+}
+
+function loadGalleryImages() {
+    console.log('Loading gallery images...');
+    
+    // Try to load from site-data.json first, then fallback to gallery.json
+    fetch('site-data.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('site-data.json not found');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Site data loaded:', data);
+            if (data.gallery && data.gallery.images && data.gallery.images.length > 0) {
+                console.log('Found gallery images in site-data.json:', data.gallery.images);
+                displayGalleryImages(data.gallery.images);
+            } else {
+                console.log('No gallery in site-data.json, trying gallery.json');
+                return loadFromGalleryJson();
+            }
+        })
+        .catch(error => {
+            console.log('Error loading site-data.json:', error);
+            return loadFromGalleryJson();
+        });
+}
+
+function loadFromGalleryJson() {
+    return fetch('gallery.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('gallery.json not found');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Gallery data loaded:', data);
+            if (data && data.images && data.images.length > 0) {
+                console.log('Found gallery images in gallery.json:', data.images);
+                displayGalleryImages(data.images);
+            } else {
+                console.log('No images in gallery.json');
+                showGalleryPlaceholder();
+            }
+        })
+        .catch(error => {
+            console.log('Error loading gallery.json:', error);
+            showGalleryPlaceholder();
+        });
+}
+
+function displayGalleryImages(images) {
+    console.log('Displaying gallery images:', images);
+    const galleryGrid = document.getElementById('galleryGrid');
+    
+    if (!galleryGrid) {
+        console.error('Gallery grid element not found!');
+        return;
+    }
+    
+    if (images && images.length > 0) {
+        galleryGrid.innerHTML = '';
+        images.forEach((imageInfo, index) => {
+            console.log(`Creating gallery item ${index + 1}:`, imageInfo);
+            const galleryItem = createGalleryItem(imageInfo.path, imageInfo.name);
+            galleryGrid.appendChild(galleryItem);
+        });
+        console.log(`✅ Displayed ${images.length} gallery images`);
+    } else {
+        console.log('No images to display, showing placeholder');
+        showGalleryPlaceholder();
+    }
+}
+
+function showGalleryPlaceholder() {
+    const galleryGrid = document.getElementById('galleryGrid');
+    galleryGrid.innerHTML = `
+        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
+            <p>No images in gallery yet.</p>
+            <p>Use the admin panel to add images.</p>
+        </div>
+    `;
+}
+
 function createGalleryItem(src, alt) {
+    console.log('Creating gallery item with src:', src);
     const item = document.createElement('div');
     item.className = 'gallery-item';
     
     item.innerHTML = `
-        <img src="${src}" alt="${alt}" loading="lazy">
+        <img src="${src}" alt="${alt}" loading="lazy" 
+             onerror="console.error('Failed to load image:', '${src}'); this.style.display='none';"
+             onload="console.log('Image loaded successfully:', '${src}');">
     `;
     
     return item;
@@ -141,3 +313,28 @@ window.addEventListener('scroll', () => {
         }
     }
 });
+
+// Apply custom image positioning and zoom (only to hero image)
+function applyImageSettings(settings) {
+    console.log('Applying image settings:', settings);
+    
+    // Only apply to hero profile image, not about section
+    const heroProfileImage = document.querySelector('.profile-image img');
+    
+    if (heroProfileImage) {
+        if (settings.zoom) {
+            heroProfileImage.style.transform = `scale(${settings.zoom})`;
+        }
+        if (settings.positionX !== undefined && settings.positionY !== undefined) {
+            heroProfileImage.style.objectPosition = `${settings.positionX}% ${settings.positionY}%`;
+            heroProfileImage.style.transformOrigin = `${settings.positionX}% ${settings.positionY}%`;
+        }
+        console.log('✅ Applied custom image settings to hero image');
+    }
+    
+    // About section image remains natural (no custom settings applied)
+    const aboutImage = document.querySelector('.about-image img');
+    if (aboutImage) {
+        console.log('✅ About section image kept natural (no zoom/positioning)');
+    }
+}

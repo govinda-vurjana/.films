@@ -1,0 +1,69 @@
+{
+  "profile": {
+    "name": "Govind",
+    "role": "Actor",
+    "bio": "I am an actor & film-maker !",
+    "height": "5'3\" ",
+    "languages": "Hindi, Telugu, English",
+    "location": "Mumbai, Maharashtra",
+    "experience": "Fresher",
+    "age": "25",
+    "imageSettings": {
+      "zoom": 1.6,
+      "positionX": 69,
+      "positionY": 21
+    }
+  },
+  "about": {
+    "paragraph1": "Govind is an actor and a film-maker, previously he used to work as an Ai Engineer, but later he decided to follow his dream and try something different.",
+    "paragraph2": "",
+    "skills": ""
+  },
+  "contact": {
+    "email": "govind.vurjana.reach@gmail.com",
+    "phone": "+91 89199 35776",
+    "instagram": "https://instagram.com/story_remains",
+    "vimeo": "",
+    "linkedin": ""
+  },
+  "gallery": {
+    "images": [
+      {
+        "name": "signal-2023-06-24-083129_002.jpeg",
+        "path": "assets/signal-2023-06-24-083129_002.jpeg",
+        "timestamp": 1766050369907
+      },
+      {
+        "name": "your-photo.jpeg",
+        "path": "assets/your-photo.jpeg",
+        "timestamp": 1766050369924
+      },
+      {
+        "name": "IMG_20211220_230613_649.jpg",
+        "path": "assets/IMG_20211220_230613_649.jpg",
+        "timestamp": 1766050369927
+      },
+      {
+        "name": "4B29C60E-C503-4831-AB14-FF45280D05F8.jpeg",
+        "path": "assets/4B29C60E-C503-4831-AB14-FF45280D05F8.jpeg",
+        "timestamp": 1766050369931
+      },
+      {
+        "name": "IMG_3677.JPG",
+        "path": "assets/IMG_3677.JPG",
+        "timestamp": 1766050369942
+      },
+      {
+        "name": "IMG_3363.jpeg",
+        "path": "assets/IMG_3363.jpeg",
+        "timestamp": 1766050369966
+      },
+      {
+        "name": "IMG_2965c.jpeg",
+        "path": "assets/IMG_2965c.jpeg",
+        "timestamp": 1766050370018
+      }
+    ]
+  },
+  "lastUpdated": "2025-12-18T09:32:56.717Z"
+}

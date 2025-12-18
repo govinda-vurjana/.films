@@ -64,6 +64,199 @@
         .upload-btn:hover {
             background: #0056b3;
         }
+
+        .upload-btn.primary {
+            background: #28a745;
+            font-weight: 600;
+        }
+
+        .upload-btn.primary:hover {
+            background: #218838;
+        }
+
+        .section-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid #e9ecef;
+        }
+
+        .section-card h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .profile-image-upload {
+            text-align: center;
+        }
+
+        .current-profile {
+            margin-bottom: 15px;
+        }
+
+        .image-editor-container {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .current-profile {
+            position: relative;
+            width: 200px;
+            height: 250px;
+            margin: 0 auto 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .current-profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 20%; /* Default position */
+            transform-origin: 50% 20%; /* Default transform origin */
+            transition: transform 0.2s ease, object-position 0.2s ease, transform-origin 0.2s ease;
+            cursor: move;
+            display: block;
+            /* Force hardware acceleration for smoother transforms */
+            will-change: transform, object-position;
+        }
+
+        .crop-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            border: 2px dashed rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .crop-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: #007bff;
+            border: 2px solid white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: move;
+            pointer-events: all;
+        }
+
+        .image-controls {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .upload-btn.small {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .action-section {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .action-section .upload-btn {
+            margin: 0 10px;
+        }
+
+        .deploy-btn {
+            background: #ff6b35 !important;
+            animation: pulse 2s infinite;
+        }
+
+        .deploy-btn:hover {
+            background: #e55a2b !important;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 53, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); }
+        }
+
+        .preview-section {
+            background: #e8f5e8;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .preview-buttons {
+            margin-top: 15px;
+        }
+
+        .preview-buttons .upload-btn {
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
         
         .image-grid {
             display: grid;
@@ -107,6 +300,18 @@
         .action-btn:hover {
             background: rgba(0,0,0,0.9);
         }
+
+        .image-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+            text-align: center;
+        }
         
         .git-section {
             background: #f8f9fa;
@@ -121,8 +326,62 @@
             padding: 15px;
             border-radius: 6px;
             font-family: 'Courier New', monospace;
-            margin-top: 10px;
+            margin: 15px 0;
             white-space: pre-line;
+        }
+
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .instructions h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .instructions ul {
+            margin-top: 5px;
+            margin-left: 20px;
+        }
+
+        .instructions code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .file-status {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .file-check {
+            margin: 8px 0;
+            font-family: monospace;
+        }
+
+        .file-check.found {
+            color: #28a745;
+        }
+
+        .file-check.missing {
+            color: #dc3545;
         }
         
         .status {
@@ -161,8 +420,29 @@
                         <div class="form-group">
                             <label>Profile Image</label>
                             <div class="profile-image-upload">
-                                <div class="current-profile" id="currentProfile">
-                                    <img id="profilePreview" src="assets/profile.jpg" alt="Profile" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDIwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjUwIiBmaWxsPSIjZjBmMGYwIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTMwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiPk5vIEltYWdlPC90ZXh0Pgo8L3N2Zz4K'">
+                                <div class="image-editor-container">
+                                    <div class="current-profile" id="currentProfile">
+                                        <img id="profilePreview" src="assets/profile.jpg" alt="Profile" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDIwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjUwIiBmaWxsPSIjZjBmMGYwIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTMwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiPk5vIEltYWdlPC90ZXh0Pgo8L3N2Zz4K'">
+                                        <div class="crop-overlay" id="cropOverlay">
+                                            <div class="crop-handle" id="cropHandle"></div>
+                                        </div>
+                                    </div>
+                                    <div class="image-controls">
+                                        <div class="control-group">
+                                            <label for="zoomSlider">Zoom: <span id="zoomValue">1.0x</span></label>
+                                            <input type="range" id="zoomSlider" min="1" max="3" step="0.1" value="1.2">
+                                        </div>
+                                        <div class="control-group">
+                                            <label for="positionX">Horizontal Position: <span id="positionXValue">50%</span></label>
+                                            <input type="range" id="positionX" min="0" max="100" step="1" value="50">
+                                        </div>
+                                        <div class="control-group">
+                                            <label for="positionY">Vertical Position: <span id="positionYValue">20%</span></label>
+                                            <input type="range" id="positionY" min="0" max="100" step="1" value="20">
+                                        </div>
+                                        <button type="button" class="upload-btn small" onclick="resetImagePosition()">Reset Position</button>
+                        <button type="button" class="upload-btn small" onclick="testVerticalPosition()">Test Vertical</button>
+                                    </div>
                                 </div>
                                 <input type="file" id="profileUpload" accept="image/*" style="display: none;">
                                 <button class="upload-btn" onclick="document.getElementById('profileUpload').click()">
@@ -211,8 +491,27 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="skills">Skills (comma separated)</label>
-                        <input type="text" id="skills" placeholder="Direction, Cinematography, Editing, Color Grading">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" placeholder="25" min="16" max="100">
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Section Content -->
+            <div class="section-card">
+                <h3>About Section</h3>
+                <div class="about-form">
+                    <div class="form-group">
+                        <label for="aboutParagraph1">About Paragraph 1</label>
+                        <textarea id="aboutParagraph1" rows="3" placeholder="I'm a passionate filmmaker with over 5 years of experience..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="aboutParagraph2">About Paragraph 2</label>
+                        <textarea id="aboutParagraph2" rows="3" placeholder="I've worked with various clients from independent artists..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="aboutSkills">Skills (comma separated)</label>
+                        <input type="text" id="aboutSkills" placeholder="Direction, Cinematography, Editing, Color Grading">
                     </div>
                 </div>
             </div>
@@ -265,11 +564,28 @@
             <!-- Action Buttons -->
             <div class="action-section">
                 <button class="upload-btn primary" onclick="saveAllData()">
-                    Save All Changes
+                    💾 Save All Changes
                 </button>
                 <button class="upload-btn" onclick="loadCurrentData()">
-                    Load Current Data
+                    🔄 Load Current Data
                 </button>
+                <button class="upload-btn deploy-btn" id="deployBtn" onclick="deployToGit()" style="display: none;">
+                    🚀 Deploy to GitHub
+                </button>
+            </div>
+
+            <!-- Live Preview -->
+            <div class="preview-section">
+                <h3>🔍 Live Preview</h3>
+                <p>See your changes in real-time:</p>
+                <div class="preview-buttons">
+                    <button class="upload-btn" onclick="openPreview()">
+                        🌐 Open Website Preview
+                    </button>
+                    <button class="upload-btn" onclick="refreshPreview()">
+                        🔄 Refresh Preview
+                    </button>
+                </div>
             </div>
             
             <div id="status" class="status"></div>
@@ -279,14 +595,44 @@
             </div>
             
             <div class="git-section">
-                <h3>Git Deployment Commands</h3>
-                <p>After updating your gallery, run these commands to deploy to GitHub Pages:</p>
+                <h3>📋 Deployment Instructions</h3>
+                <div class="instructions">
+                    <h4>After clicking "Save All Changes":</h4>
+                    <ol>
+                        <li><strong>Save downloaded files:</strong>
+                            <ul>
+                                <li>Save <code>site-data.json</code> to your project root folder</li>
+                                <li>Save <code>gallery.json</code> to your project root folder</li>
+                            </ul>
+                        </li>
+                        <li><strong>Save uploaded images:</strong>
+                            <ul>
+                                <li>Download any new images from the gallery section below</li>
+                                <li>Save them to your <code>assets/</code> folder</li>
+                            </ul>
+                        </li>
+                        <li><strong>Test locally:</strong>
+                            <ul>
+                                <li>Open <code>index.html</code> in your browser to see changes</li>
+                            </ul>
+                        </li>
+                        <li><strong>Deploy to GitHub:</strong></li>
+                    </ol>
+                </div>
+                
                 <div class="git-commands" id="gitCommands">
 git add .
-git commit -m "Update portfolio gallery"
+git commit -m "Update portfolio content"
 git push origin main
                 </div>
-                <button class="upload-btn" onclick="copyGitCommands()">Copy Commands</button>
+                <button class="upload-btn" onclick="copyGitCommands()">Copy Git Commands</button>
+                
+                <div class="file-status" id="fileStatus">
+                    <h4>📁 Required Files Status:</h4>
+                    <div class="file-check" id="siteDataCheck">❓ site-data.json - <span>Checking...</span></div>
+                    <div class="file-check" id="galleryDataCheck">❓ gallery.json - <span>Checking...</span></div>
+                    <button class="upload-btn" onclick="checkFiles()">Check Files</button>
+                </div>
             </div>
         </div>
     </div>

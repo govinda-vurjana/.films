@@ -1,20 +1,40 @@
 {
   "images": [
     {
-      "name": "sample1.jpg",
-      "path": "assets/sample1.jpg",
-      "timestamp": 1703123456789
+      "name": "signal-2023-06-24-083129_002.jpeg",
+      "path": "assets/signal-2023-06-24-083129_002.jpeg",
+      "timestamp": 1766050369907
     },
     {
-      "name": "sample2.jpg", 
-      "path": "assets/sample2.jpg",
-      "timestamp": 1703123456790
+      "name": "your-photo.jpeg",
+      "path": "assets/your-photo.jpeg",
+      "timestamp": 1766050369924
     },
     {
-      "name": "sample3.jpg",
-      "path": "assets/sample3.jpg", 
-      "timestamp": 1703123456791
+      "name": "IMG_20211220_230613_649.jpg",
+      "path": "assets/IMG_20211220_230613_649.jpg",
+      "timestamp": 1766050369927
+    },
+    {
+      "name": "4B29C60E-C503-4831-AB14-FF45280D05F8.jpeg",
+      "path": "assets/4B29C60E-C503-4831-AB14-FF45280D05F8.jpeg",
+      "timestamp": 1766050369931
+    },
+    {
+      "name": "IMG_3677.JPG",
+      "path": "assets/IMG_3677.JPG",
+      "timestamp": 1766050369942
+    },
+    {
+      "name": "IMG_3363.jpeg",
+      "path": "assets/IMG_3363.jpeg",
+      "timestamp": 1766050369966
+    },
+    {
+      "name": "IMG_2965c.jpeg",
+      "path": "assets/IMG_2965c.jpeg",
+      "timestamp": 1766050370018
     }
   ],
-  "lastUpdated": "2024-12-17T10:30:00.000Z"
+  "lastUpdated": "2025-12-18T09:32:56.718Z"
 }
